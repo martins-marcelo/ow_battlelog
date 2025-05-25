@@ -5,13 +5,21 @@ class RoleModel {
   final String rankIcon;
   final String tierIcon;
 
-  RoleModel(this.division, this.tier, this.roleIcon, this.rankIcon, this.tierIcon);
+  RoleModel({
+    required this.division,
+    required this.tier,
+    required this.roleIcon,
+    required this.rankIcon,
+    required this.tierIcon,
+  });
 
   factory RoleModel.fromJson(Map<String, dynamic> json) {
-    return RoleModel(json["divison"],
-    json["tier"],
-    json["role_icon"],
-    json["rank_icon"],
-    json["tier_icon"]);
+    return RoleModel(
+      division: json['division'] ?? '',
+      tier: json['tier'] ?? 0,
+      roleIcon: json['role_icon'] ?? '',
+      rankIcon: json['rank_icon'] ?? '',
+      tierIcon: json['tier_icon'] ?? '',
+    );
   }
 }

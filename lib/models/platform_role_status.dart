@@ -1,20 +1,27 @@
 import 'package:ow_battlelog/models/role_model.dart';
 
 class PlatformRoleStatus {
-  RoleModel? tank;
-  RoleModel? damage;
-  RoleModel? support;
-  RoleModel? open;
-  int? season;
+  final int season;
+  final RoleModel tank;
+  final RoleModel damage;
+  final RoleModel support;
+  final RoleModel open;
 
-  PlatformRoleStatus({this.tank, this.damage, this.support, this.open, this.season});
+  PlatformRoleStatus({
+    required this.season,
+    required this.tank,
+    required this.damage,
+    required this.support,
+    required this.open,
+  });
 
-  PlatformRoleStatus.fromJson(Map<String, dynamic> json) {
-    tank = json['tank'] != null ? RoleModel.fromJson(json['tank']) : null;
-    damage = json['damage'] != null ? RoleModel.fromJson(json['damage']) : null;
-    support =
-        json['support'] != null ? RoleModel.fromJson(json['support']) : null;
-    open = json['open'] != null ? RoleModel.fromJson(json['open']) : null;
-    season = json['season'];
+  factory PlatformRoleStatus.fromJson(Map<String, dynamic> json) {
+    return PlatformRoleStatus(
+      season: json['season'] ?? 0,
+      tank: RoleModel.fromJson(json['tank'] ?? {}),
+      damage: RoleModel.fromJson(json['damage'] ?? {}),
+      support: RoleModel.fromJson(json['support'] ?? {}),
+      open: RoleModel.fromJson(json['open'] ?? {}),
+    );
   }
 }

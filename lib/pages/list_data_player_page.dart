@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ow_battlelog/controllers/player_controller.dart';
 import 'package:ow_battlelog/models/competitive_status_model.dart';
 import 'package:ow_battlelog/models/endorsement.dart';
+import 'package:ow_battlelog/models/platform_role_status.dart';
 import 'package:ow_battlelog/models/player_model.dart';
 import 'package:ow_battlelog/models/player_summary_model.dart';
+import 'package:ow_battlelog/models/role_model.dart';
 import 'package:ow_battlelog/repositories/player_repository.dart';
 import 'dart:typed_data';
 import 'package:ow_battlelog/widgets/image_from_bytes.dart';
@@ -21,7 +23,7 @@ class _ListDataPlayerState extends State<ListDataPlayer> {
       PlayerController(PlayerRepository());
 
   ValueNotifier<PlayerModel> playerData = ValueNotifier(
-    PlayerModel('', '', '', '', Endorsement(), CompetitiveStatusModel(), 0),
+    PlayerModel(username: '', avatar: '', namecard: '', lastUpdatedAt: 0, endorsement: Endorsement(), competitive: CompetitiveStatusModel(pc: PlatformRoleStatus(season: 0, tank: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), damage: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), support: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), open: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: '')), console: PlatformRoleStatus(season: 0, tank: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), damage: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), support: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), open: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: '')))),
   );
 
   late PlayerSummaryModel playerSum;

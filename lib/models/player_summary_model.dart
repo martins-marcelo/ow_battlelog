@@ -22,8 +22,6 @@ class PlayerSummaryModel {
     return PlayerSummaryModel(
       playerId: json['player_id'],
       name: json['name'],
-      avatar: json['avatar'],
-      namecard: json['namecard'],
       title: json['title'],
       careerUrl: json['career_url'],
       lastUpdatedAt: json['last_updated_at']

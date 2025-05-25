@@ -1,13 +1,18 @@
 import 'package:ow_battlelog/models/platform_role_status.dart';
 
 class CompetitiveStatusModel {
-  PlatformRoleStatus? pc;
-  PlatformRoleStatus? console;
+  final  PlatformRoleStatus pc;
+  final PlatformRoleStatus console;
 
-  CompetitiveStatusModel({this.pc, this.console});
+  CompetitiveStatusModel({
+    required this.pc,
+    required this.console
+  });
 
-  CompetitiveStatusModel.fromJson(Map<String, dynamic> json) {
-    pc = json['pc'] != null ? PlatformRoleStatus.fromJson(json['pc']) : null;
-    console = json['console'] != null ? PlatformRoleStatus.fromJson(json['console']) : null;
+  factory CompetitiveStatusModel.fromJson(Map<String, dynamic> json) {
+    return CompetitiveStatusModel(
+      pc: PlatformRoleStatus.fromJson(json['pc'] ?? {}),
+      console: PlatformRoleStatus.fromJson(json['console'] ?? {})
+    );
   }
 }

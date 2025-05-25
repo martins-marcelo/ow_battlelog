@@ -5,9 +5,11 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:ow_battlelog/models/competitive_status_model.dart';
 import 'package:ow_battlelog/models/endorsement.dart';
+import 'package:ow_battlelog/models/platform_role_status.dart';
 
 import 'package:ow_battlelog/models/player_model.dart';
 import 'package:ow_battlelog/models/player_summary_model.dart';
+import 'package:ow_battlelog/models/role_model.dart';
 
 class PlayerRepository {
 
@@ -15,7 +17,7 @@ class PlayerRepository {
     final queryParams = {
       'name': username
     };
-    var url = Uri.http(_getUrl(), '/players', queryParams);
+    var url = Uri.https(_getUrl(), '/players', queryParams);
     var response = await http.get(url);
     if(response.statusCode == 200) {
       var decodedMap = convert.jsonDecode(response.body);
@@ -30,7 +32,7 @@ class PlayerRepository {
   }
 
   Future<PlayerModel> searchAllDataFromPlayer(String playerId) async {
-    var url = Uri.http(_getUrl(), '/players/$playerId');
+    var url = Uri.https(_getUrl(), '/players/$playerId');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       print(response);
@@ -42,7 +44,7 @@ class PlayerRepository {
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
-    return PlayerModel('', '', '', '', Endorsement(), CompetitiveStatusModel(), 0);
+    return PlayerModel(username: '', avatar: '', namecard: '', lastUpdatedAt: 0, endorsement: Endorsement(), competitive: CompetitiveStatusModel(pc: PlatformRoleStatus(season: 0, tank: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), damage: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), support: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), open: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: '')), console: PlatformRoleStatus(season: 0, tank: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), damage: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), support: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), open: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''))));
   }
 
   Future<Uint8List> searchImage(String imageUrl) async {
