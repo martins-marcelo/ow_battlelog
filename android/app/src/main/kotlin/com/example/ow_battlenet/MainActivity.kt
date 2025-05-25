@@ -1,4 +1,4 @@
-package com.example.ow_battlenet
+package com.example.ow_battlelog
 
 import io.flutter.embedding.android.FlutterActivity
 

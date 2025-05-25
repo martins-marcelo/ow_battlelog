@@ -1,5 +1,5 @@
-import 'package:ow_battlenet/models/competitive_status_model.dart';
-import 'package:ow_battlenet/models/endorsement.dart';
+import 'package:ow_battlelog/models/competitive_status_model.dart';
+import 'package:ow_battlelog/models/endorsement.dart';
 
 class PlayerModel {
   final String username;

@@ -3,11 +3,11 @@
 import 'dart:convert' as convert;
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
-import 'package:ow_battlenet/models/competitive_status_model.dart';
-import 'package:ow_battlenet/models/endorsement.dart';
+import 'package:ow_battlelog/models/competitive_status_model.dart';
+import 'package:ow_battlelog/models/endorsement.dart';
 
-import 'package:ow_battlenet/models/player_model.dart';
-import 'package:ow_battlenet/models/player_summary_model.dart';
+import 'package:ow_battlelog/models/player_model.dart';
+import 'package:ow_battlelog/models/player_summary_model.dart';
 
 class PlayerRepository {
 

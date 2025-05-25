@@ -1,4 +1,4 @@
-import 'package:ow_battlenet/models/platform_role_status.dart';
+import 'package:ow_battlelog/models/platform_role_status.dart';
 
 class CompetitiveStatusModel {
   PlatformRoleStatus? pc;

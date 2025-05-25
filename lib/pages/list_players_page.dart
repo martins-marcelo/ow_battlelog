@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ow_battlenet/controllers/player_controller.dart';
-import 'package:ow_battlenet/models/player_summary_model.dart';
-import 'package:ow_battlenet/repositories/player_repository.dart';
+import 'package:ow_battlelog/controllers/player_controller.dart';
+import 'package:ow_battlelog/models/player_summary_model.dart';
+import 'package:ow_battlelog/repositories/player_repository.dart';
 
 class ListPlayers extends StatefulWidget {
   const ListPlayers({super.key});

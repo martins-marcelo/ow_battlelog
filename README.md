@@ -1,4 +1,4 @@
-# ow_battlenet
+# ow_battlelog
 
 A new Flutter project.
 

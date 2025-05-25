@@ -1,6 +1,6 @@
 {
-    "name": "ow_battlenet",
-    "short_name": "ow_battlenet",
+    "name": "ow_battlelog",
+    "short_name": "ow_battlelog",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

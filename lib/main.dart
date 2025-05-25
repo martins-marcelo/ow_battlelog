@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ow_battlenet/pages/list_data_player_page.dart';
-import 'package:ow_battlenet/pages/list_players_page.dart';
+import 'package:ow_battlelog/pages/list_data_player_page.dart';
+import 'package:ow_battlelog/pages/list_players_page.dart';
 
 void main() {
   runApp(MyApp());

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ow_battlenet/models/player_model.dart';
-import 'package:ow_battlenet/repositories/player_repository.dart';
+import 'package:ow_battlelog/models/player_model.dart';
+import 'package:ow_battlelog/repositories/player_repository.dart';
 
 class PlayerController {
   final PlayerRepository _playerRepository;

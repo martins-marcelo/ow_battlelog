@@ -1,4 +1,4 @@
-import 'package:ow_battlenet/models/role_model.dart';
+import 'package:ow_battlelog/models/role_model.dart';
 
 class PlatformRoleStatus {
   RoleModel? tank;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ow_battlenet/controllers/player_controller.dart';
-import 'package:ow_battlenet/models/competitive_status_model.dart';
-import 'package:ow_battlenet/models/endorsement.dart';
-import 'package:ow_battlenet/models/player_model.dart';
-import 'package:ow_battlenet/models/player_summary_model.dart';
-import 'package:ow_battlenet/repositories/player_repository.dart';
+import 'package:ow_battlelog/controllers/player_controller.dart';
+import 'package:ow_battlelog/models/competitive_status_model.dart';
+import 'package:ow_battlelog/models/endorsement.dart';
+import 'package:ow_battlelog/models/player_model.dart';
+import 'package:ow_battlelog/models/player_summary_model.dart';
+import 'package:ow_battlelog/repositories/player_repository.dart';
 import 'dart:typed_data';
-import 'package:ow_battlenet/widgets/image_from_bytes.dart';
+import 'package:ow_battlelog/widgets/image_from_bytes.dart';
 
 
 class ListDataPlayer extends StatefulWidget {
