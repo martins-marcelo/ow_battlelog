@@ -15,7 +15,8 @@ class PlayerRepository {
 
   Future<List<PlayerSummaryModel>> searchPlayersByUsername(String username) async {
     final queryParams = {
-      'name': username
+      'name': username,
+      'limit': '37'
     };
     var url = Uri.https(_getUrl(), '/players', queryParams);
     var response = await http.get(url);

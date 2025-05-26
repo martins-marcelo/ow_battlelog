@@ -24,7 +24,7 @@ class _ListPlayersState extends State<ListPlayers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Players"),
+        title: const Text("Players"),
       ),
       body: ValueListenableBuilder<List<PlayerSummaryModel>>(
         valueListenable: players,
@@ -35,26 +35,24 @@ class _ListPlayersState extends State<ListPlayers> {
               var player = list[idx];
 
               return ListTile(
-                leading: player.avatar != null ? CircleAvatar(
-                  backgroundImage: MemoryImage(player.avatar!),
-                )
-                : const CircleAvatar(
-                  child: Icon(Icons.person),
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(player.avatar),
                 ),
                 title: Container(
-                  decoration: player.namecard != null
-                    ? BoxDecoration(
-                      image: DecorationImage(
-                        image: MemoryImage(player.namecard!),
-                        fit: BoxFit.cover
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    )
-                    : null,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(player.namecard),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   padding: const EdgeInsets.all(8),
                   child: Text(
                     player.name,
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 onTap: () => Navigator.of(context).pushNamed(
@@ -69,17 +67,8 @@ class _ListPlayersState extends State<ListPlayers> {
     );
   }
 
-  _getIcon(PlayerSummaryModel player) {
-    return Icons.add_circle;
-  }
-
-  _fetch() async {
+  Future<void> _fetch() async {
     var result = await _playerController.buscarPlayer("Blurryface");
-    for (var player in result) {
-      var playerDetails = await _playerController.buscarPlayer(player.playerId);
-      player.avatar = await _playerController.buscarImagem(playerDetails.avatar);
-      player.namecard = await _playerController.buscarImagem(playerDetails.namecard);
-    }
     players.value = result;
   }
 }

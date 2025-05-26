@@ -11,14 +11,25 @@ class PlayerModel {
   final CompetitiveStatusModel competitive;
 
   PlayerModel({
-      required this.username,
-      required this.avatar,
-      required this.namecard,
-      this.title,
-      required this.lastUpdatedAt,
-      required this.endorsement,
-      required this.competitive
-      });
+    required this.username,
+    required this.avatar,
+    required this.namecard,
+    this.title,
+    required this.lastUpdatedAt,
+    required this.endorsement,
+    required this.competitive
+  });
+  
+  factory PlayerModel.empty() {
+    return PlayerModel(
+      username: '',
+      avatar: '',
+      namecard: '',
+      lastUpdatedAt: 0,
+      endorsement: Endorsement.empty(),
+      competitive: CompetitiveStatusModel.empty(),
+    );
+  }
 
   factory PlayerModel.fromJson(Map<String, dynamic> json) {
     return PlayerModel(
@@ -29,7 +40,7 @@ class PlayerModel {
       endorsement: Endorsement.fromJson(json['endorsement'] ?? {}),
       competitive: CompetitiveStatusModel.fromJson(json['competitive'] ?? {}),
       lastUpdatedAt: json['last_updated_at']
-  );
+    );
   }
 
 }

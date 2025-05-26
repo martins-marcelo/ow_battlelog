@@ -15,6 +15,16 @@ class PlatformRoleStatus {
     required this.open,
   });
 
+  factory PlatformRoleStatus.empty() {
+    return PlatformRoleStatus(
+      season: 0,
+      tank: RoleModel.empty(),
+      damage: RoleModel.empty(),
+      support: RoleModel.empty(),
+      open: RoleModel.empty(),
+    );
+  }
+
   factory PlatformRoleStatus.fromJson(Map<String, dynamic> json) {
     return PlatformRoleStatus(
       season: json['season'] ?? 0,

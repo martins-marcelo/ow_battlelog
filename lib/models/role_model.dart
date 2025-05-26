@@ -12,6 +12,16 @@ class RoleModel {
     required this.rankIcon,
     required this.tierIcon,
   });
+  
+  factory RoleModel.empty() {
+    return RoleModel(
+      division: '',
+      tier: 0,
+      roleIcon: '',
+      rankIcon: '',
+      tierIcon: '',
+    );
+  }
 
   factory RoleModel.fromJson(Map<String, dynamic> json) {
     return RoleModel(

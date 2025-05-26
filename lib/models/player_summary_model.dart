@@ -3,8 +3,8 @@ import 'dart:typed_data';
 class PlayerSummaryModel {
   final String playerId;
   final String name;
-  Uint8List? avatar;
-  Uint8List? namecard;
+  final String avatar;
+  final String namecard;
   String? title;
   final String careerUrl;
   final int lastUpdatedAt;
@@ -12,8 +12,8 @@ class PlayerSummaryModel {
   PlayerSummaryModel({
       required this.playerId,
       required this.name,
-      this.avatar,
-      this.namecard,
+      required this.avatar,
+      required this.namecard,
       this.title,
       required this.careerUrl,
       required this.lastUpdatedAt});
@@ -22,6 +22,8 @@ class PlayerSummaryModel {
     return PlayerSummaryModel(
       playerId: json['player_id'],
       name: json['name'],
+      avatar: json['avatar'],
+      namecard: json['namecard'],
       title: json['title'],
       careerUrl: json['career_url'],
       lastUpdatedAt: json['last_updated_at']

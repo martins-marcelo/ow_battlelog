@@ -9,6 +9,13 @@ class CompetitiveStatusModel {
     required this.console
   });
 
+  factory CompetitiveStatusModel.empty() {
+    return CompetitiveStatusModel(
+      pc: PlatformRoleStatus.empty(),
+      console: PlatformRoleStatus.empty(),
+    );
+  }
+
   factory CompetitiveStatusModel.fromJson(Map<String, dynamic> json) {
     return CompetitiveStatusModel(
       pc: PlatformRoleStatus.fromJson(json['pc'] ?? {}),

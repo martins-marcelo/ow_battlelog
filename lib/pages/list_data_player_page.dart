@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ow_battlelog/controllers/player_controller.dart';
-import 'package:ow_battlelog/models/competitive_status_model.dart';
-import 'package:ow_battlelog/models/endorsement.dart';
-import 'package:ow_battlelog/models/platform_role_status.dart';
 import 'package:ow_battlelog/models/player_model.dart';
 import 'package:ow_battlelog/models/player_summary_model.dart';
-import 'package:ow_battlelog/models/role_model.dart';
 import 'package:ow_battlelog/repositories/player_repository.dart';
-import 'dart:typed_data';
-import 'package:ow_battlelog/widgets/image_from_bytes.dart';
-
 
 class ListDataPlayer extends StatefulWidget {
   const ListDataPlayer({super.key});
@@ -19,11 +12,10 @@ class ListDataPlayer extends StatefulWidget {
 }
 
 class _ListDataPlayerState extends State<ListDataPlayer> {
-  final PlayerController _playerController =
-      PlayerController(PlayerRepository());
+  final PlayerController _playerController = PlayerController(PlayerRepository());
 
   ValueNotifier<PlayerModel> playerData = ValueNotifier(
-    PlayerModel(username: '', avatar: '', namecard: '', lastUpdatedAt: 0, endorsement: Endorsement(), competitive: CompetitiveStatusModel(pc: PlatformRoleStatus(season: 0, tank: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), damage: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), support: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), open: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: '')), console: PlatformRoleStatus(season: 0, tank: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), damage: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), support: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: ''), open: RoleModel(division: '', tier: 0, roleIcon: '', rankIcon: '', tierIcon: '')))),
+    PlayerModel.empty(),
   );
 
   late PlayerSummaryModel playerSum;
@@ -34,8 +26,7 @@ class _ListDataPlayerState extends State<ListDataPlayer> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isInitialized) {
-      playerSum =
-          ModalRoute.of(context)!.settings.arguments as PlayerSummaryModel;
+      playerSum = ModalRoute.of(context)!.settings.arguments as PlayerSummaryModel;
       _fetch();
       _isInitialized = true;
     }
@@ -57,67 +48,101 @@ class _ListDataPlayerState extends State<ListDataPlayer> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          player.username.isEmpty ? 'Carregando...' : player.username,
-        ),
+        title: Text(player.username.isEmpty ? 'Carregando...' : player.username),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      ImageFromBytes(
-                        bytes: playerSum.avatar,
-                        width: 100,
-                        height: 200,
-                      ),
-                      ImageFromBytes(
-                        bytes: playerSum.namecard,
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.fill,
-                      ),
-                    ],
-                  ),
+                  _buildHeader(),
                   const SizedBox(height: 20),
-                  const Text('Ranks (em construção)'),
-                  Row(
-                    children: [
-                      Container(),
-                      Container(),
-                      Container(),
-                      Container(),
-                    ],
-                  ),
+                  _buildRanksSection(player),
                 ],
               ),
             ),
     );
   }
 
-  /// Widget para exibir imagem diretamente dos bytes
-  Widget _buildImageFromBytes(Uint8List? bytes, double width, double height) {
-    if (bytes == null || bytes.isEmpty) {
-      return Container(
-        width: width,
-        height: height,
-        color: Colors.grey[300],
-        child: const Icon(Icons.image_not_supported, size: 50),
-      );
-    }
-
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: MemoryImage(bytes),
-          fit: BoxFit.cover,
+  /// Header com avatar e namecard
+  Widget _buildHeader() {
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundImage: NetworkImage(playerSum.avatar),
         ),
-        borderRadius: BorderRadius.circular(8),
-      ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Container(
+            height: 100,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(playerSum.namecard),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              playerSum.name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    blurRadius: 4,
+                    color: Colors.black,
+                    offset: Offset(1, 1),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Seção de Ranks (em construção)
+  Widget _buildRanksSection(PlayerModel player) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Ranks',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 12),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildRankCard('Tank', player.competitive.pc.tank.rankIcon),
+            _buildRankCard('Damage', player.competitive.pc.damage.rankIcon),
+            _buildRankCard('Support', player.competitive.pc.support.rankIcon),
+            _buildRankCard('Open Queue', player.competitive.pc.open.rankIcon),
+          ],
+        ),
+      ],
+    );
+  }
+
+  /// Widget individual para cada rank
+  Widget _buildRankCard(String role, String iconUrl) {
+    return Column(
+      children: [
+        Image.network(
+          iconUrl,
+          width: 50,
+          height: 50,
+          errorBuilder: (context, error, stackTrace) => const Icon(Icons.image_not_supported),
+        ),
+        const SizedBox(height: 4),
+        Text(role, style: const TextStyle(fontSize: 12)),
+      ],
     );
   }
 }
